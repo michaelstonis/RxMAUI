@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RxMAUI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RxMAUI"
+    xmlns:pages="clr-namespace:RxMAUI.UserInterface.Pages"
+    xmlns:rxCorePages="clr-namespace:RxMAUI.UserInterface.Pages.CoreRx"
+    xmlns:rxUIPages="clr-namespace:RxMAUI.UserInterface.Pages.RxUI"
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*,0.8*" HeightRequest="44">
+                <Image Source="{Binding FlyoutIcon}"
+                       Margin="5"
+                       HeightRequest="45" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontAttributes="Italic"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab
+            Title="Reactive Extensions"
+            Icon="rx">
+            <ShellContent
+                Title="Combine Latest"
+                Icon="combinelatest"
+                ContentTemplate="{DataTemplate rxCorePages:CombineLatestPage}"
+                Route="CombineLatest" />
+
+            <ShellContent
+                Title="Merge"
+                Icon="merge"
+                ContentTemplate="{DataTemplate rxCorePages:MergePage}"
+                Route="Merge" />
+
+            <ShellContent
+                Title="Buffer"
+                Icon="buffer"
+                ContentTemplate="{DataTemplate rxCorePages:BufferPage}"
+                Route="Buffer" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab
+            Title="Reactive UI"
+            Icon="rxui">
+            <ShellContent
+                Title="Color Slider"
+                Icon="combinelatest"
+                ContentTemplate="{DataTemplate rxUIPages:ColorSliderPage}"
+                Route="RxUIColorSlider" />
+            <ShellContent
+                Title="Login"
+                Icon="login"
+                ContentTemplate="{DataTemplate rxUIPages:LoginPage}"
+                Route="RxUILogin" />
+        </Tab>
+    </FlyoutItem>
+    <ShellContent
+        Title="About"
+        Icon="about"
+        ContentTemplate="{DataTemplate pages:AboutPage}"
+        Route="About" />
+</Shell>
+
