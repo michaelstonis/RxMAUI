@@ -17,18 +17,45 @@ public class BufferPage : ContentPageBase
         Title = "Rx - Buffer";
 
         Content =
-            new VerticalStackLayout
+            new Grid
             {
+                RowDefinitions =
+                    Rows.Define(
+                        Auto,
+                        Star),
+
                 Children =
                 {
                     new Entry
                     {
                         VerticalOptions = LayoutOptions.Start,
                     }
+                        .Row(0)
                         .Assign(out textEntry),
 
                     new CollectionView()
                         .ItemsSource(_values)
+                        .ItemTemplate(
+                            new DataTemplate(
+                                () =>
+                                new VerticalStackLayout
+                                {
+                                    Spacing = 4,
+                                    Children =
+                                    {
+                                        new Label
+                                        {
+                                            FontSize = 18,
+                                        }
+                                            .Bind(Label.TextProperty, Binding.SelfPath, BindingMode.OneTime),
+                                        new BoxView
+                                        {
+                                            Color = Colors.Gray,
+                                            HeightRequest = 1,
+                                        },
+                                    },
+                                }))
+                        .Row(1)
                         .Assign(out lastEntries),
                 },
             };
@@ -38,12 +65,14 @@ public class BufferPage : ContentPageBase
     {
         textEntry.Events()
             .TextChanged
-            .Buffer(TimeSpan.FromSeconds(3), TaskPoolScheduler.Default)
+            .Buffer(TimeSpan.FromSeconds(3), Scheduler.Default)
             .Select(
                 argsList =>
-                    string.Join(
-                        Environment.NewLine,
-                        argsList.Select(args => args.NewTextValue).Reverse().ToList()))
+                    argsList.Count > 0
+                        ? string.Join(
+                            Environment.NewLine,
+                            argsList.Select(args => args.NewTextValue).Reverse().ToList())
+                        : "~No Changes~")
             .Do(newValue => _values.Insert(0, newValue))
             .Subscribe()
             .DisposeWith(ObservableDisposables);
