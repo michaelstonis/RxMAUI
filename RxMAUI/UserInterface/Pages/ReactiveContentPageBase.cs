@@ -9,6 +9,11 @@ namespace RxMAUI.UserInterface.Pages
     {
         protected readonly CompositeDisposable ObservableDisposables = new CompositeDisposable();
 
+        public ReactiveContentPageBase()
+        {
+            Padding = new Thickness(16, 60, 16, 16);
+        }
+
         protected abstract void SetupUserInterface();
 
         protected abstract void SetupObservables();
