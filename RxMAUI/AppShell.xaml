@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="RxMAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -7,6 +7,7 @@
     xmlns:pages="clr-namespace:RxMAUI.UserInterface.Pages"
     xmlns:rxCorePages="clr-namespace:RxMAUI.UserInterface.Pages.CoreRx"
     xmlns:rxUIPages="clr-namespace:RxMAUI.UserInterface.Pages.RxUI"
+    FlyoutBackgroundColor="#222222"
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.ItemTemplate>
@@ -17,7 +18,8 @@
                        HeightRequest="45" />
                 <Label Grid.Column="1"
                        Text="{Binding Title}"
-                       FontAttributes="Italic"
+                       FontAttributes="Bold"
+                       TextColor="White"
                        VerticalTextAlignment="Center" />
             </Grid>
         </DataTemplate>
@@ -60,6 +62,11 @@
                 Icon="login"
                 ContentTemplate="{DataTemplate rxUIPages:LoginPage}"
                 Route="RxUILogin" />
+            <ShellContent
+                Title="Dynamic Data"
+                Icon="search"
+                ContentTemplate="{DataTemplate rxUIPages:DynamicDataSearch}"
+                Route="RxUIDynamicData" />
         </Tab>
     </FlyoutItem>
     <ShellContent
