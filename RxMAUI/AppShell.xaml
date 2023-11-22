@@ -63,10 +63,15 @@
                 ContentTemplate="{DataTemplate rxUIPages:LoginPage}"
                 Route="RxUILogin" />
             <ShellContent
-                Title="Dynamic Data"
+                Title="Dynamic Data - Search"
                 Icon="search"
                 ContentTemplate="{DataTemplate rxUIPages:DynamicDataSearch}"
-                Route="RxUIDynamicData" />
+                Route="RxUIDynamicDataSearch" />
+            <ShellContent
+                Title="Dynamic Data - Filter"
+                Icon="filter"
+                ContentTemplate="{DataTemplate rxUIPages:DynamicDataFilter}"
+                Route="RxUIDynamicDataFilter" />
         </Tab>
     </FlyoutItem>
     <ShellContent

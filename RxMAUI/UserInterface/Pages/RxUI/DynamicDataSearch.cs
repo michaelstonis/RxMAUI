@@ -16,7 +16,7 @@ public class DynamicDataSearch : ContentPage
 			{
 				new Grid
 				{
-					ColumnDefinitions =Columns.Define(Auto, Star, Auto),
+					ColumnDefinitions = Columns.Define(Auto, Star, Auto),
 					RowDefinitions = Rows.Define(Auto),
 					ColumnSpacing = 8,
 					Padding = 8,
@@ -70,7 +70,7 @@ public class DynamicDataSearch : ContentPage
 							}
 								.Bind(Label.TextProperty, ".")),
 				}
-					.Bind(CollectionView.ItemsSourceProperty, static (DynamicDataSearchViewModel vm) => vm.FilteredItems),
+					.Bind(ItemsView.ItemsSourceProperty, static (DynamicDataSearchViewModel vm) => vm.FilteredItems),
 			},
 		};
 	}

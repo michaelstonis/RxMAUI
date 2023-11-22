@@ -1,8 +1,10 @@
 using DynamicData;
+using DynamicData.Binding;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using UIKit;
 
 public class DynamicDataSearchViewModel : ReactiveObject
 {
@@ -50,6 +52,7 @@ public class DynamicDataSearchViewModel : ReactiveObject
                                         string.IsNullOrWhiteSpace(filter) ||
                                         item.Contains(filter, StringComparison.OrdinalIgnoreCase);
                                 })))
+            .Sort(SortExpressionComparer<string>.Ascending(item => item))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _filteredItems)
             .Subscribe();
