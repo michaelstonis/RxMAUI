@@ -40,6 +40,16 @@ public class DynamicDataFilter : ContentPage
 				{
 					HasUnevenRows = true,
 					SelectionMode = ListViewSelectionMode.None,
+					IsGroupingEnabled = true,
+					GroupHeaderTemplate =
+						new DataTemplate(
+							() =>
+							 new ViewCell()
+							 {
+								View =
+									new Label()
+										.Bind(Label.TextProperty, nameof(GroupedRssEntries.Key), BindingMode.OneWay),
+							 }),
 					ItemTemplate =
 						new DataTemplate(() =>
 							new ViewCell
