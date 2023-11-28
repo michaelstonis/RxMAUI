@@ -94,6 +94,7 @@ public class GroupedRssEntries : ObservableCollectionExtended<RssEntry>, IDispos
             grouping.List
                 .Connect()
                 .Sort(SortExpressionComparer<RssEntry>.Descending(x => x.Updated))
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(this)
                 .Subscribe();
     }
