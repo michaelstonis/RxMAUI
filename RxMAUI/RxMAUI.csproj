@@ -30,7 +30,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
@@ -51,18 +51,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DynamicData" Version="8.1.1" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="DynamicData" Version="8.3.27" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="ReactiveUI.Maui" Version="19.5.1" />
+		<PackageReference Include="ReactiveUI.Maui" Version="19.5.41" />
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="4.0.0" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="System.Reactive" Version="6.0.0" />
 		<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.3.1">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="ReactiveUI.Fody" Version="19.5.1" />
+		<PackageReference Include="ReactiveUI.Fody" Version="19.5.41" />
 	</ItemGroup>
 </Project>
