@@ -4,8 +4,6 @@ using ReactiveUI;
 using RxMAUI;
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
-using UIKit;
 
 public class DynamicDataFilterViewModel : ReactiveObject
 {
