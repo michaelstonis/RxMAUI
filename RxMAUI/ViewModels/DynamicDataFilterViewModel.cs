@@ -4,8 +4,6 @@ using ReactiveUI;
 using RxMAUI;
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
-using UIKit;
 
 public class DynamicDataFilterViewModel : ReactiveObject
 {
@@ -15,7 +13,7 @@ public class DynamicDataFilterViewModel : ReactiveObject
 
     private SourceList<RssEntry> _items;
 
-    private ReadOnlyObservableCollection<RssEntry> _filteredItems;
+    private ReadOnlyObservableCollection<GroupedRssEntries> _filteredItems;
 
     public string Filter
     {
@@ -23,7 +21,7 @@ public class DynamicDataFilterViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _filter, value);
     }
 
-    public ReadOnlyObservableCollection<RssEntry> FilteredItems => _filteredItems;
+    public ReadOnlyObservableCollection<GroupedRssEntries> FilteredItems => _filteredItems;
 
     public ReactiveCommand<Unit, Unit> LoadDataCommand { get; }
 
@@ -55,9 +53,12 @@ public class DynamicDataFilterViewModel : ReactiveObject
                                         item.Category.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
                                         item.Title.Contains(filter, StringComparison.OrdinalIgnoreCase);
                                 })))
-            .Sort(SortExpressionComparer<RssEntry>.Ascending(item => item.Updated))
+            .GroupOn(x => x.Title.Substring(0, 1))
+            .Transform(groupedItems => new GroupedRssEntries(groupedItems))
+            .Sort(SortExpressionComparer<GroupedRssEntries>.Ascending(item => item.Key))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _filteredItems)
+            .DisposeMany()
             .Subscribe();
 
         LoadDataCommand =
@@ -73,5 +74,46 @@ public class DynamicDataFilterViewModel : ReactiveObject
                                 list.AddRange(rssEntries);
                             });
                     });
+    }
+}
+
+public class GroupedRssEntries : ObservableCollectionExtended<RssEntry>, IDisposable
+{
+    private IDisposable _disposable;
+    private bool disposedValue;
+
+    public string Key { get; private set; }
+
+    public GroupedRssEntries(IGroup<RssEntry, string> grouping)
+    {
+        Key = grouping.GroupKey;
+
+        _disposable =
+            grouping.List
+                .Connect()
+                .Sort(SortExpressionComparer<RssEntry>.Descending(x => x.Updated))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Bind(this)
+                .Subscribe();
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                _disposable?.Dispose();
+            }
+
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

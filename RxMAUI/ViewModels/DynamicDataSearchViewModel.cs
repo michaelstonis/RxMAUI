@@ -3,8 +3,6 @@ using DynamicData.Binding;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
-using UIKit;
 
 public class DynamicDataSearchViewModel : ReactiveObject
 {
